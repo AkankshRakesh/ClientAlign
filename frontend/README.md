@@ -85,4 +85,4 @@ Enable seamless, transparent, and goal-driven collaboration between clients and 
 - JWT/Session authentication
 - Secure invitation-based onboarding
 
----  
+---
