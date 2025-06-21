@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧩 ClientAlign
 
-## Getting Started
+**ClientAlign** is a multi-tenant collaboration platform that bridges the gap between clients and creators (freelancers, agencies, teams). It helps align both parties around shared project goals, milestones, and progress through a modern, interactive dashboard.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Vision
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Enable seamless, transparent, and goal-driven collaboration between clients and creators.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📌 Key Features (Planned)
 
-## Learn More
+### 🎯 Project Management
 
-To learn more about Next.js, take a look at the following resources:
+- Create and manage projects with detailed descriptions
+- Set clear goals, milestones, and deadlines
+- Assign roles: `Worker (Creator)` and `Client`
+- Support multiple creators per project
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 👥 Multi-Tenant Collaboration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Each user has a role in a specific project
+- Clients can only view and give feedback
+- Creators can create/update content and respond to feedback
+- Invite users via email or shareable link
 
-## Deploy on Vercel
+### ✅ Goal & Milestone Tracking
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Pre-defined goals per project
+- Visual progress bars and step indicators
+- Milestone completion status with due dates
+- Auto-progress calculation based on tasks completed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📋 Task Management
+
+- Task creation & assignment
+- Task statuses: To-do, In Progress, Done
+- Filters: by status, member, deadline
+- Task comments and attachments
+
+### 📝 Feedback System
+
+- Clients can leave feedback tied to specific goals/tasks
+- Feedback thread with timestamps and status (open/resolved)
+- Internal notes visible only to Creators
+
+### 📈 Project Dashboard
+
+- Live dashboards for both creators and clients
+- Progress overview by milestone, goal, and time
+- Recent activity feed
+- Charts for completion trends and time tracking
+
+### 🛠 File Sharing & Deliverables
+
+- Upload and preview deliverables (PDF, images, docs)
+- Version control and history
+- "Mark as Delivered" toggle
+
+### 🧠 Smart Summary (Future)
+
+- AI-generated weekly summaries for clients
+- Progress insights, roadblocks, and upcoming steps
+
+### 🔔 Notifications
+
+- Email and in-app alerts for updates, feedback, milestones
+- Role-based notification settings
+
+### 🗃 Project Archive & History
+
+- Archive completed or paused projects
+- Full activity and feedback history
+
+### 📅 Calendar & Timeline View
+
+- Gantt-style timeline for project phases
+- Drag-and-drop task rescheduling (for Creators)
+
+### 🔐 Authentication & Access Control
+
+- Role-based access: `Creator`, `Client`, `Admin`
+- JWT/Session authentication
+- Secure invitation-based onboarding
+
+---
