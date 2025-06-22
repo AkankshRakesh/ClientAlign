@@ -551,12 +551,6 @@ export default function Home() {
           <div className="absolute top-16 left-1/3">
             <div className="h-4 w-4 rotate-45 transform animate-bounce bg-gradient-to-br from-red-400 to-pink-400 opacity-30"></div>
           </div>
-          <div className="absolute bottom-32 left-1/2">
-            <div className="h-12 w-3 animate-pulse rounded-full bg-gradient-to-t from-blue-400 to-cyan-400 opacity-25"></div>
-          </div>
-          <div className="absolute top-1/3 right-16">
-            <div className="h-2 w-8 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-30"></div>
-          </div>
         </div>
       </section>
 
@@ -678,10 +672,10 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  "ClientAlign has completely transformed how we work with our
+                  &quot;ClientAlign has completely transformed how we work with our
                   clients. The transparency and goal alignment features have
                   reduced our revision cycles by 60% and increased client
-                  satisfaction dramatically."
+                  satisfaction dramatically.&quot;
                 </p>
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
