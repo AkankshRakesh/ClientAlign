@@ -764,10 +764,10 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  "ClientAlign has completely transformed how we work with our
+                  &quot;ClientAlign has completely transformed how we work with our
                   clients. The transparency and goal alignment features have
                   reduced our revision cycles by 60% and increased client
-                  satisfaction dramatically."
+                  satisfaction dramatically.&quot;
                 </p>
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
