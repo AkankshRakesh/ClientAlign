@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
   Users,
-  Target,
+  Target, 
   MessageSquare,
   BarChart3,
   FileText,
