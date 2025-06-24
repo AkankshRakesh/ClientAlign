@@ -425,15 +425,18 @@ export default function LandingPage() {
           </nav>
 
           <div className="hidden items-center space-x-4 md:flex">
+            <Link href="/signin">
             <Button
               variant="ghost"
               className="text-gray-600 hover:text-blue-600"
             >
               Sign In
             </Button>
+            </Link>
+            <Link href="/get-started">
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
               Get Started
-            </Button>
+            </Button></Link>
           </div>
 
           <button
@@ -540,6 +543,7 @@ export default function LandingPage() {
 
               {/* Action Buttons */}
               <div className="mt-8 space-y-3">
+                <Link href="/signin">
                 <Button
                   variant="outline"
                   size="lg"
@@ -547,6 +551,8 @@ export default function LandingPage() {
                 >
                   Sign In
                 </Button>
+                </Link>
+                <Link href="/get-started">
                 <Button
                   size="lg"
                   className="w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
@@ -554,6 +560,7 @@ export default function LandingPage() {
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+                </Link>
               </div>
 
               {/* Footer Info */}
