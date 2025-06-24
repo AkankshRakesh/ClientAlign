@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
-import User from "../models/User";
-import { generateToken } from "../utils/generateToken";
+import User from "../models/User.js";
+import { generateToken } from "../utils/generateToken.js";
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -19,7 +18,7 @@ export const registerUser = async (req: Request, res: Response) => {
   });
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
