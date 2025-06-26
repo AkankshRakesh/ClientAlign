@@ -37,7 +37,10 @@ export default function LandingPage() {
   const benefitsRef = useRef<HTMLElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const signOut = () => {
+  localStorage.removeItem("authToken"); // or cookies if you store it there
+  window.location.href = "/signin"; // redirect to login page
+};
   // Separate useEffect for mobile menu animation
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -63,7 +66,7 @@ export default function LandingPage() {
       setIsAuthenticated(false);
     }
   };
-
+  
   verifyToken();
     if (mobileMenuOpen) {
       gsap.fromTo(
@@ -211,11 +214,9 @@ export default function LandingPage() {
             </Link>
           </div>
         ) : (
-          <Link href="/signout">
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+            <Button onClick={() => signOut()} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
               Sign Out
             </Button>
-          </Link>
         )}
 
 

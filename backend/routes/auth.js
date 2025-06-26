@@ -26,4 +26,15 @@ router.get('/verify', protect, (req, res) => {
   res.json({ valid: true, user: req.user });
 });
 
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) return res.status(500).json({ message: "Logout failed" });
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid"); // if you're using cookies for sessions
+      return res.status(200).json({ message: "Logged out successfully" });
+    });
+  });
+});
+
+
 export default router;
