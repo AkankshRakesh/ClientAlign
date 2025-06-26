@@ -36,265 +36,35 @@ export default function LandingPage() {
   const featuresRef = useRef<HTMLElement>(null);
   const benefitsRef = useRef<HTMLElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const ctx = gsap.context(() => {
-      // Hero animations
-      // gsap.fromTo(".hero-title", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" })
-      // gsap.fromTo(
-      //   ".hero-subtitle",
-      //   { opacity: 0, y: 50 },
-      //   { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power3.out" },
-      // )
-      // gsap.fromTo(
-      //   ".hero-cta",
-      //   { opacity: 0, y: 30 },
-      //   { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: "power3.out" },
-      // )
-      // // Enhanced floating animations with complex paths
-      // gsap.to(".floating-1", {
-      //   motionPath: {
-      //     path: "M0,0 Q50,-30 100,0 T200,0",
-      //     autoRotate: true,
-      //   },
-      //   duration: 8,
-      //   repeat: -1,
-      //   ease: "none",
-      // })
-      // gsap.to(".floating-1", {
-      //   scale: 1.2,
-      //   duration: 2,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // gsap.to(".floating-1", {
-      //   rotation: 360,
-      //   duration: 12,
-      //   repeat: -1,
-      //   ease: "none",
-      // })
-      // // Pulsing and morphing animation for floating-2
-      // gsap.to(".floating-2", {
-      //   y: -25,
-      //   x: 15,
-      //   duration: 3,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "sine.inOut",
-      //   delay: 0.5,
-      // })
-      // gsap.to(".floating-2", {
-      //   scale: 0.8,
-      //   duration: 1.5,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      //   delay: 1,
-      // })
-      // gsap.to(".floating-2", {
-      //   borderRadius: "50% 20% 50% 20%",
-      //   duration: 4,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // // Complex orbital motion for floating-3
-      // gsap.to(".floating-3", {
-      //   motionPath: {
-      //     path: "M0,0 A30,30 0 1,1 0,1 A30,30 0 1,1 0,0",
-      //     autoRotate: false,
-      //   },
-      //   duration: 6,
-      //   repeat: -1,
-      //   ease: "none",
-      //   delay: 1,
-      // })
-      // gsap.to(".floating-3", {
-      //   rotation: -360,
-      //   duration: 3,
-      //   repeat: -1,
-      //   ease: "none",
-      // })
-      // gsap.to(".floating-3", {
-      //   skewX: 15,
-      //   skewY: 5,
-      //   duration: 2,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // // Additional floating shapes with unique animations
-      // gsap.to(".floating-4", {
-      //   motionPath: {
-      //     path: "M0,0 Q-50,-20 -100,0 Q-150,20 -200,0",
-      //     autoRotate: false,
-      //   },
-      //   duration: 4,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // gsap.to(".floating-4", {
-      //   scale: 0.8,
-      //   duration: 2,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "sine.inOut",
-      // })
-      // gsap.to(".floating-4", {
-      //   opacity: 0.4,
-      //   duration: 1.5,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // gsap.to(".floating-5", {
-      //   motionPath: {
-      //     path: "M0,0 C20,-40 80,-40 100,0 C80,40 20,40 0,0",
-      //     autoRotate: true,
-      //   },
-      //   duration: 10,
-      //   repeat: -1,
-      //   ease: "none",
-      // })
-      // gsap.to(".floating-6", {
-      //   y: -30,
-      //   rotation: 720,
-      //   transformOrigin: "center center",
-      //   duration: 8,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "back.inOut(1.7)",
-      // })
-      // // Morphing background gradients
-      // gsap.to(".morph-bg-1", {
-      //   scale: 1.5,
-      //   rotation: 45,
-      //   borderRadius: "30% 70% 70% 30% / 30% 30% 70% 70%",
-      //   duration: 8,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "sine.inOut",
-      // })
-      // gsap.to(".morph-bg-2", {
-      //   scale: 0.7,
-      //   rotation: -90,
-      //   borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-      //   duration: 6,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "power2.inOut",
-      // })
-      // gsap.to(".morph-bg-3", {
-      //   scaleX: 1.8,
-      //   scaleY: 0.6,
-      //   rotation: 180,
-      //   borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-      //   duration: 10,
-      //   repeat: -1,
-      //   yoyo: true,
-      //   ease: "elastic.inOut(1, 0.5)",
-      // })
-      // // Features section animations
-      // gsap.fromTo(
-      //   ".feature-card",
-      //   { opacity: 0, y: 80, scale: 0.9 },
-      //   {
-      //     opacity: 1,
-      //     y: 0,
-      //     scale: 1,
-      //     duration: 0.8,
-      //     stagger: 0.2,
-      //     ease: "power3.out",
-      //     scrollTrigger: {
-      //       trigger: ".features-grid",
-      //       start: "top 80%",
-      //       end: "bottom 20%",
-      //     },
-      //   },
-      // )
-      // // Benefits section animations
-      // gsap.fromTo(
-      //   ".benefit-item",
-      //   { opacity: 0, x: -50 },
-      //   {
-      //     opacity: 1,
-      //     x: 0,
-      //     duration: 0.8,
-      //     stagger: 0.15,
-      //     ease: "power3.out",
-      //     scrollTrigger: {
-      //       trigger: ".benefits-list",
-      //       start: "top 80%",
-      //     },
-      //   },
-      // )
-      // // Stats animation
-      // gsap.fromTo(
-      //   ".stat-number",
-      //   { opacity: 0, scale: 0.5 },
-      //   {
-      //     opacity: 1,
-      //     scale: 1,
-      //     duration: 0.6,
-      //     stagger: 0.1,
-      //     ease: "back.out(1.7)",
-      //     scrollTrigger: {
-      //       trigger: ".stats-section",
-      //       start: "top 80%",
-      //     },
-      //   },
-      // )
-      // // CTA section animation
-      // gsap.fromTo(
-      //   ".cta-content",
-      //   { opacity: 0, y: 50 },
-      //   {
-      //     opacity: 1,
-      //     y: 0,
-      //     duration: 1,
-      //     ease: "power3.out",
-      //     scrollTrigger: {
-      //       trigger: ".cta-section",
-      //       start: "top 80%",
-      //     },
-      //   },
-      // )
-      // // Enhanced parallax effect for background elements
-      // gsap.to(".bg-gradient-1", {
-      //   yPercent: -50,
-      //   rotation: 45,
-      //   ease: "none",
-      //   scrollTrigger: {
-      //     trigger: "body",
-      //     start: "top bottom",
-      //     end: "bottom top",
-      //     scrub: true,
-      //   },
-      // })
-      // gsap.to(".bg-gradient-2", {
-      //   yPercent: -30,
-      //   rotation: -30,
-      //   ease: "none",
-      //   scrollTrigger: {
-      //     trigger: "body",
-      //     start: "top bottom",
-      //     end: "bottom top",
-      //     scrub: true,
-      //   },
-      // })
-    });
-
-    return () => ctx.revert();
-  }, []); // Removed mobileMenuOpen dependency
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Separate useEffect for mobile menu animation
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const token = localStorage.getItem("authToken");
+  if (!token) return;
 
+  const verifyToken = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/verify", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Token invalid");
+
+      const data = await res.json();
+      console.log("Token valid!", data);
+      setIsAuthenticated(true); // ✅ Set user as logged in
+    } catch (err) {
+      console.log("Invalid or expired token" + err);
+      localStorage.removeItem("authToken"); // ❌ Clear bad token
+      setIsAuthenticated(false);
+    }
+  };
+
+  verifyToken();
     if (mobileMenuOpen) {
       gsap.fromTo(
         ".mobile-menu-slide",
@@ -424,20 +194,30 @@ export default function LandingPage() {
             </Link>
           </nav>
 
+          {isAuthenticated == false ? (
           <div className="hidden items-center space-x-4 md:flex">
             <Link href="/signin">
-            <Button
-              variant="ghost"
-              className="text-gray-600 hover:text-blue-600"
-            >
-              Sign In
-            </Button>
+              <Button
+                variant="ghost"
+                className="text-gray-600 hover:text-blue-600"
+              >
+                Sign In
+              </Button>
             </Link>
             <Link href="/get-started">
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
-              Get Started
-            </Button></Link>
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+                Get Started
+              </Button>
+            </Link>
           </div>
+        ) : (
+          <Link href="/signout">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+              Sign Out
+            </Button>
+          </Link>
+        )}
+
 
           <button
             className="md:hidden"

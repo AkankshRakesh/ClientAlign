@@ -136,10 +136,12 @@ export default function SignInPage() {
             <CardContent className="space-y-6">
               {/* Social Login Buttons */}
               <div className="grid grid-cols-2 gap-4">
+                <Link href="http://localhost:5000/api/auth/github">
                 <Button variant="outline" className="w-full">
                   <Github className="mr-2 h-4 w-4" />
                   GitHub
                 </Button>
+                </Link>
                 <Button variant="outline" className="w-full">
                   <Chrome className="mr-2 h-4 w-4" />
                   Google

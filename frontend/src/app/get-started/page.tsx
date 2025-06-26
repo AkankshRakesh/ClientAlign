@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -25,6 +25,8 @@ import {
   Palette,
 } from "lucide-react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function GetStartedPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -35,10 +37,18 @@ export default function GetStartedPage() {
     confirmPassword: "",
     role: "creator" as "creator" | "client",
   })
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+  const router = useRouter();
   const [acceptTerms, setAcceptTerms] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
-
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('authToken', token); // Store the JWT
+      router.push('/'); // Redirect to a protected route
+    }
+  }, [token, router]);
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     // Clear error when user starts typing
@@ -181,10 +191,12 @@ export default function GetStartedPage() {
                 <CardContent className="space-y-6">
                   {/* Social Sign Up Buttons */}
                   <div className="grid grid-cols-2 gap-4">
+                    <Link href="http://localhost:5000/api/auth/github">
                     <Button variant="outline" className="w-full">
                       <Github className="mr-2 h-4 w-4" />
                       GitHub
                     </Button>
+                    </Link>
                     <Button variant="outline" className="w-full">
                       <Chrome className="mr-2 h-4 w-4" />
                       Google
