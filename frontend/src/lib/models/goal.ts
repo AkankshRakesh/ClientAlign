@@ -1,5 +1,5 @@
 // lib/models/Goal.ts
-import { Task } from './Task';
+import { Task } from "./Task";
 
 export interface Goal {
   _id: string;

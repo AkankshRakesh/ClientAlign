@@ -38,36 +38,36 @@ export default function LandingPage() {
   const ctaRef = useRef<HTMLElement>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const signOut = () => {
-  localStorage.removeItem("authToken"); // or cookies if you store it there
-  window.location.href = "/signin"; // redirect to login page
-};
+    localStorage.removeItem("authToken"); // or cookies if you store it there
+    window.location.href = "/signin"; // redirect to login page
+  };
   // Separate useEffect for mobile menu animation
   useEffect(() => {
     if (typeof window === "undefined") return;
     const token = localStorage.getItem("authToken");
-  if (!token) return;
+    if (!token) return;
 
-  const verifyToken = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/auth/verify", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    const verifyToken = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/auth/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-      if (!res.ok) throw new Error("Token invalid");
+        if (!res.ok) throw new Error("Token invalid");
 
-      const data = await res.json();
-      console.log("Token valid!", data);
-      setIsAuthenticated(true); // ✅ Set user as logged in
-    } catch (err) {
-      console.log("Invalid or expired token" + err);
-      localStorage.removeItem("authToken"); // ❌ Clear bad token
-      setIsAuthenticated(false);
-    }
-  };
-  
-  verifyToken();
+        const data = await res.json();
+        console.log("Token valid!", data);
+        setIsAuthenticated(true); // ✅ Set user as logged in
+      } catch (err) {
+        console.log("Invalid or expired token" + err);
+        localStorage.removeItem("authToken"); // ❌ Clear bad token
+        setIsAuthenticated(false);
+      }
+    };
+
+    verifyToken();
     if (mobileMenuOpen) {
       gsap.fromTo(
         ".mobile-menu-slide",
@@ -198,27 +198,29 @@ export default function LandingPage() {
           </nav>
 
           {isAuthenticated == false ? (
-          <div className="hidden items-center space-x-4 md:flex">
-            <Link href="/signin">
-              <Button
-                variant="ghost"
-                className="text-gray-600 hover:text-blue-600"
-              >
-                Sign In
-              </Button>
-            </Link>
-            <Link href="/get-started">
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-        ) : (
-            <Button onClick={() => signOut()} className="hidden md:flex bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+            <div className="hidden items-center space-x-4 md:flex">
+              <Link href="/signin">
+                <Button
+                  variant="ghost"
+                  className="text-gray-600 hover:text-blue-600"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href="/get-started">
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Button
+              onClick={() => signOut()}
+              className="hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 md:flex"
+            >
               Sign Out
             </Button>
-        )}
-
+          )}
 
           <button
             className="md:hidden"
@@ -326,27 +328,33 @@ export default function LandingPage() {
               <div className="mt-8 space-y-3">
                 {!isAuthenticated ? (
                   <>
-                  <Link href="/signin">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full justify-center border-gray-200 text-gray-700 hover:bg-gray-50"
-                >
-                  Sign In
-                </Button>
-                </Link>
-                <Link href="/get-started">
-                <Button
-                  size="lg"
-                  className="w-full mt-3 justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
-                >
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                </Link>
-                </>) : (<Button onClick={() => signOut()} className="w-full mt-3 justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700">
-              Sign Out
-            </Button>)}
+                    <Link href="/signin">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="w-full justify-center border-gray-200 text-gray-700 hover:bg-gray-50"
+                      >
+                        Sign In
+                      </Button>
+                    </Link>
+                    <Link href="/get-started">
+                      <Button
+                        size="lg"
+                        className="mt-3 w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
+                      >
+                        Get Started
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </>
+                ) : (
+                  <Button
+                    onClick={() => signOut()}
+                    className="mt-3 w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
+                  >
+                    Sign Out
+                  </Button>
+                )}
               </div>
 
               {/* Footer Info */}
@@ -557,8 +565,8 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  &quot;ClientAlign has completely transformed how we work with our
-                  clients. The transparency and goal alignment features have
+                  &quot;ClientAlign has completely transformed how we work with
+                  our clients. The transparency and goal alignment features have
                   reduced our revision cycles by 60% and increased client
                   satisfaction dramatically.&quot;
                 </p>
