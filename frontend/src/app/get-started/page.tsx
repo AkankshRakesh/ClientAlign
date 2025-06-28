@@ -197,10 +197,12 @@ export default function GetStartedPage() {
                       GitHub
                     </Button>
                     </Link>
+                    <Link href="http://localhost:5000/api/auth/google">
                     <Button variant="outline" className="w-full">
                       <Chrome className="mr-2 h-4 w-4" />
                       Google
                     </Button>
+                    </Link>
                   </div>
 
                   <div className="relative">

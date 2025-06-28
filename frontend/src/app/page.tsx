@@ -214,7 +214,7 @@ export default function LandingPage() {
             </Link>
           </div>
         ) : (
-            <Button onClick={() => signOut()} className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
+            <Button onClick={() => signOut()} className="hidden md:flex bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700">
               Sign Out
             </Button>
         )}
@@ -324,7 +324,9 @@ export default function LandingPage() {
 
               {/* Action Buttons */}
               <div className="mt-8 space-y-3">
-                <Link href="/signin">
+                {!isAuthenticated ? (
+                  <>
+                  <Link href="/signin">
                 <Button
                   variant="outline"
                   size="lg"
@@ -336,12 +338,15 @@ export default function LandingPage() {
                 <Link href="/get-started">
                 <Button
                   size="lg"
-                  className="w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
+                  className="w-full mt-3 justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
                 >
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 </Link>
+                </>) : (<Button onClick={() => signOut()} className="w-full mt-3 justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700">
+              Sign Out
+            </Button>)}
               </div>
 
               {/* Footer Info */}

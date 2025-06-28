@@ -21,6 +21,16 @@ router.get("/github/callback",
     res.redirect(`http://localhost:3000/get-started?token=${token}`);
   }
 );
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+
+// Google OAuth callback
+router.get("/google/callback",
+  passport.authenticate("google", { session: false, failureRedirect: "http://localhost:3000/signin" }),
+  (req, res) => {
+    const token = generateToken(req.user._id);
+    res.redirect(`http://localhost:3000/get-started?token=${token}`);
+  }
+);
 
 router.get('/verify', protect, (req, res) => {
   res.json({ valid: true, user: req.user });
