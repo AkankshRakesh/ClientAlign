@@ -11,28 +11,42 @@ router.post("/login", loginUser);
 router.post("/register", registerUser);
 
 // GitHub OAuth start
-router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] }),
+);
 
 // GitHub OAuth callback
-router.get("/github/callback",
-  passport.authenticate("github", { session: false, failureRedirect: "http://localhost:3000/signin" }),
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    session: false,
+    failureRedirect: "http://localhost:3000/signin",
+  }),
   (req, res) => {
     const token = generateToken(req.user._id);
     res.redirect(`http://localhost:3000/get-started?token=${token}`);
-  }
+  },
 );
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] }),
+);
 
 // Google OAuth callback
-router.get("/google/callback",
-  passport.authenticate("google", { session: false, failureRedirect: "http://localhost:3000/signin" }),
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "http://localhost:3000/signin",
+  }),
   (req, res) => {
     const token = generateToken(req.user._id);
     res.redirect(`http://localhost:3000/get-started?token=${token}`);
-  }
+  },
 );
 
-router.get('/verify', protect, (req, res) => {
+router.get("/verify", protect, (req, res) => {
   res.json({ valid: true, user: req.user });
 });
 
@@ -45,6 +59,5 @@ router.get("/logout", (req, res) => {
     });
   });
 });
-
 
 export default router;
