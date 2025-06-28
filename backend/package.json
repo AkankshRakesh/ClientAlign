@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.js",
     "format": "prettier --write ."
   },
-  "type": "module",
+  "type": "module", 
   "keywords": [],
   "author": "",
   "license": "ISC",
