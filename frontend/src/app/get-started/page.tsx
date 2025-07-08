@@ -91,7 +91,7 @@ export default function GetStartedPage() {
       };
 
       // Simulate API call - replace with actual endpoint
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -209,13 +209,13 @@ export default function GetStartedPage() {
                 <CardContent className="space-y-6">
                   {/* Social Sign Up Buttons */}
                   <div className="grid grid-cols-2 gap-4">
-                    <Link href="http://localhost:5000/api/auth/github">
+                    <Link href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/github`}>
                       <Button variant="outline" className="w-full">
                         <Github className="mr-2 h-4 w-4" />
                         GitHub
                       </Button>
                     </Link>
-                    <Link href="http://localhost:5000/api/auth/google">
+                    <Link href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/google`}>
                       <Button variant="outline" className="w-full">
                         <Chrome className="mr-2 h-4 w-4" />
                         Google

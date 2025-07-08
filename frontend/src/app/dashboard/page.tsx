@@ -121,7 +121,7 @@ export default function DashboardPage() {
     try {
       setIsLoading(true)
       const token = localStorage.getItem("authToken")
-      const res = await fetch("http://localhost:5000/api/projects", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/projects`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       })
       if (res.ok) {
@@ -143,7 +143,7 @@ export default function DashboardPage() {
     setIsCreating(true)
     try {
       const token = localStorage.getItem("authToken")
-      const res = await fetch("http://localhost:5000/api/projects", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/projects`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

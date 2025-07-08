@@ -21,11 +21,11 @@ router.get(
   "/github/callback",
   passport.authenticate("github", {
     session: false,
-    failureRedirect: "http://localhost:3000/signin",
+    failureRedirect: `${process.env.NEXT_PUBLIC_FRONTEND}/signin`,
   }),
   (req, res) => {
     const token = generateToken(req.user._id);
-    res.redirect(`http://localhost:3000/get-started?token=${token}`);
+    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}`);
   },
 );
 router.get(
@@ -38,11 +38,11 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "http://localhost:3000/signin",
+    failureRedirect: `${process.env.NEXT_PUBLIC_FRONTEND}/signin`,
   }),
   (req, res) => {
     const token = generateToken(req.user._id);
-    res.redirect(`http://localhost:3000/get-started?token=${token}`);
+    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}`);
   },
 );
 
