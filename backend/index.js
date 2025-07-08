@@ -17,7 +17,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // adjust for prod
+    origin: "*", // adjust for prod
     credentials: true,
   }),
 );
