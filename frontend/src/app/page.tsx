@@ -214,12 +214,22 @@ export default function LandingPage() {
               </Link>
             </div>
           ) : (
+            <div className="hidden items-center space-x-4 md:flex">
             <Button
               onClick={() => signOut()}
-              className="hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 md:flex"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
             >
               Sign Out
             </Button>
+            <Link href="/dashboard">
+            <Button
+                  variant="ghost"
+                  className="text-gray-600 hover:text-blue-600"
+                >
+              Dashboard
+            </Button>
+            </Link>
+            </div>
           )}
 
           <button

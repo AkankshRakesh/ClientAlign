@@ -9,6 +9,7 @@ import User from "./models/User.js";
 import { generateToken } from "./utils/generateToken.js";
 import GoogleStrategy from "passport-google-oauth20";
 import authRoutes from "./routes/auth.js";
+import projectRoutes from "./routes/project.js";
 
 dotenv.config();
 
@@ -67,6 +68,8 @@ passport.use(
     },
   ),
 );
+
+app.use('/api/projects', projectRoutes);
 
 passport.use(
   new GoogleStrategy(
