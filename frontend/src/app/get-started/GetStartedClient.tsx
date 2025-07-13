@@ -39,6 +39,8 @@ export default function GetStartedPage() {
   });
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+  const name = searchParams.get("name");
+  const email = searchParams.get("email");
   const router = useRouter();
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,9 +48,11 @@ export default function GetStartedPage() {
   useEffect(() => {
     if (token) {
       localStorage.setItem("authToken", token); // Store the JWT
+      localStorage.setItem("userName", name || ""); // Store the user's name
+      localStorage.setItem("userEmail", email || ""); // Store the user's email
       router.push("/"); // Redirect to a protected route
     }
-  }, [token, router]);
+  }, [token, router, name, email]);
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing

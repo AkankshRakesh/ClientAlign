@@ -39,6 +39,8 @@ export default function LandingPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const signOut = () => {
     localStorage.removeItem("authToken"); // or cookies if you store it there
+    localStorage.removeItem("userName")
+    localStorage.removeItem("userEmail")
     window.location.href = "/signin"; // redirect to login page
   };
   // Separate useEffect for mobile menu animation

@@ -76,6 +76,8 @@ export default function SignInPage() {
       // Store token if provided
       if (result.token) {
         localStorage.setItem("authToken", result.token);
+        localStorage.setItem("userName", result.name || "");
+        localStorage.setItem("userEmail", result.email || "");
       }
 
       // Redirect to dashboard

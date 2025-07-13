@@ -80,19 +80,22 @@ export default function DashboardPage() {
 
   const signOut = () => {
     localStorage.removeItem("authToken")
+    localStorage.removeItem("userName")
+    localStorage.removeItem("userEmail")
     window.location.href = "/signin"
   }
 
   // Redirect if not authenticated
   useEffect(() => {
     const token = localStorage.getItem("authToken")
-    const storedUser = localStorage.getItem("user")
+    const userName = localStorage.getItem("userName")
+    const userEmail = localStorage.getItem("userEmail")
     if (!token) {
       router.push("/signin")
     } else {
       setIsAuthenticated(true)
       try {
-        setUser(JSON.parse(storedUser || "{}"))
+        setUser({ name: userName || undefined, email: userEmail || undefined })
       } catch {
         setUser(null)
       }

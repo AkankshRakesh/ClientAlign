@@ -25,7 +25,7 @@ router.get(
   }),
   (req, res) => {
     const token = generateToken(req.user._id);
-    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}`);
+    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}&name=${req.user.name}&email=${req.user.email}`);
   },
 );
 router.get(
@@ -42,7 +42,7 @@ router.get(
   }),
   (req, res) => {
     const token = generateToken(req.user._id);
-    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}`);
+    res.redirect(`${process.env.NEXT_PUBLIC_FRONTEND}/get-started?token=${token}&name=${req.user.name}&email=${req.user.email}`);
   },
 );
 
