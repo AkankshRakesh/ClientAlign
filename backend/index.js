@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import passport from "passport";
 import GitHubStrategy from "passport-github2";
 import User from "./models/User.js";
@@ -25,9 +26,18 @@ app.use(
 app.use(express.json());
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.JWT_SECRET || "your-secret-key", // use a strong secret in .env
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production", // use HTTPS in production
+    },
   }),
 );
 app.use(passport.initialize());
