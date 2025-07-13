@@ -69,6 +69,7 @@ type Project = {
   createdAt?: string
   clientName?: string
   participants?: { _id: string; name: string; email: string; image?: string; role?: string }[]
+  invites?: { user: string }[]
 }
 
 type Task = {
@@ -185,6 +186,53 @@ export default function ProjectDetailPage() {
       fetchProjectData()
     }
   }, [projectId, router])
+  const [searchQuery, setSearchQuery] = useState("");
+const [searchResults, setSearchResults] = useState<{ _id: string; name: string; email: string; image?: string }[]>([]);
+const handleInvite = async (user: { _id: string }) => {
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await fetch(`http://localhost:5000/api/projects/${projectId}/invite`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId: user._id }),
+    });
+
+    const result = await res.json();
+
+    if (res.ok) {
+      window.location.reload();
+    } else {
+      alert(result.message || "Invite failed");
+    }
+  } catch (err) {
+    console.error("Invite error", err);
+    alert("Invite failed due to network/server issue.");
+  }
+};
+
+useEffect(() => {
+  const delayDebounce = setTimeout(() => {
+    const fetchUsers = async () => {
+      if (!searchQuery.trim()) return setSearchResults([]);
+      try {
+        const token = localStorage.getItem("authToken");
+        const res = await fetch(`http://localhost:5000/api/users/search?query=${searchQuery}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setSearchResults(data);
+      } catch (err) {
+        console.error("User search failed", err);
+      }
+    };
+    fetchUsers();
+  }, 500);
+
+  return () => clearTimeout(delayDebounce);
+}, [searchQuery]);
 
   const handleAddTask = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -598,10 +646,57 @@ export default function ProjectDetailPage() {
                     <Users className="mr-2 h-5 w-5" />
                     Team Members ({project.participants?.length || 0})
                   </CardTitle>
-                  <Button>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Invite Member
-                  </Button>
+                  <Dialog>
+  <DialogTrigger asChild>
+    <Button>
+      <Plus className="mr-2 h-4 w-4" />
+      Invite Member
+    </Button>
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Invite a Member</DialogTitle>
+      <DialogDescription>Search for a user by name to invite them to this project.</DialogDescription>
+    </DialogHeader>
+
+    <div className="space-y-4">
+      <Input
+        placeholder="Search by username"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+      <div className="space-y-2 max-h-60 overflow-y-auto">
+        {searchResults.filter((user) => {
+    const isParticipant = project.participants?.some((p) => p._id === user._id);
+    const isInvited = project.invites?.some((inv) => inv.user === user._id);
+    return !isParticipant && !isInvited;
+  }).map((user) => (
+          <div
+            key={user._id}
+            className="flex items-center justify-between border rounded-lg px-3 py-2 hover:bg-muted cursor-pointer"
+            onClick={() => handleInvite(user)}
+          >
+            <div className="flex items-center space-x-3">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={user.image || ""} />
+                <AvatarFallback>{user.name[0]}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-medium">{user.name}</p>
+                <p className="text-xs text-muted-foreground">{user.email}</p>
+              </div>
+            </div>
+            <Button size="sm">Invite</Button>
+          </div>
+        ))}
+        {searchQuery && searchResults.length === 0 && (
+          <p className="text-muted-foreground text-sm">No users found.</p>
+        )}
+      </div>
+    </div>
+  </DialogContent>
+</Dialog>
+
                 </div>
               </CardHeader>
               <CardContent>

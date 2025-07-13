@@ -10,7 +10,7 @@ import { generateToken } from "./utils/generateToken.js";
 import GoogleStrategy from "passport-google-oauth20";
 import authRoutes from "./routes/auth.js";
 import projectRoutes from "./routes/project.js";
-
+import userRoutes from "./routes/user.js";
 dotenv.config();
 
 const app = express();
@@ -98,6 +98,7 @@ passport.use(
     },
   ),
 );
+app.use("/api/users", userRoutes);
 
 app.use("/api/auth", authRoutes);
 

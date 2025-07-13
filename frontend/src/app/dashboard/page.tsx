@@ -77,6 +77,14 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [isCreating, setIsCreating] = useState(false)
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  type Invite = {
+    _id: string;
+    title: string;
+    clientId?: { name?: string };
+    clientName?: string;
+    // Add other fields as needed
+  };
+  const [invites, setInvites] = useState<Invite[]>([]);
 
   const signOut = () => {
     localStorage.removeItem("authToken")
@@ -84,10 +92,47 @@ export default function DashboardPage() {
     localStorage.removeItem("userEmail")
     window.location.href = "/signin"
   }
+  const fetchInvites = async (token: string) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/users/invites`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setInvites(data);
+    }
+  } catch (err) {
+    console.error("Error fetching invites:", err);
+  }
+};
+const handleInviteResponse = async (projectId: string, action: "accept" | "reject") => {
+  try {
+    const token = localStorage.getItem("authToken");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/projects/${projectId}/respond-invite`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ action }),
+    });
+
+    if (res.ok) {
+      setInvites((prev) => prev.filter((invite) => invite._id !== projectId));
+      fetchProjects(); // update project list if accepted
+    } else {
+      console.error("Failed to respond to invite");
+    }
+  } catch (err) {
+    console.error("Error responding to invite:", err);
+  }
+};
+
 
   // Redirect if not authenticated
   useEffect(() => {
     const token = localStorage.getItem("authToken")
+    fetchInvites(token || "");
     const userName = localStorage.getItem("userName")
     const userEmail = localStorage.getItem("userEmail")
     if (!token) {
@@ -247,10 +292,51 @@ export default function DashboardPage() {
             </nav>
           </div>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="relative">
-              <Bell className="h-4 w-4" />
-              <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+            <DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="ghost" size="sm" className="relative">
+      <Bell className="h-4 w-4" />
+      {invites.length > 0 && (
+        <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full" />
+      )}
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent align="end" className="w-72">
+    <DropdownMenuLabel>Invitations</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    {invites.length === 0 ? (
+      <DropdownMenuItem disabled>No invites</DropdownMenuItem>
+    ) : (
+      invites.map((invite) => (
+        <div key={invite._id} className="px-2 py-2">
+          <div className="text-sm font-medium">{invite.title}</div>
+          <div className="text-xs text-muted-foreground mb-2">
+            Invited by: {invite.clientName || "Unknown"}
+          </div>
+          <div className="flex space-x-2">
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-xs"
+              onClick={() => handleInviteResponse(invite._id, "accept")}
+            >
+              Accept
             </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-xs text-red-500"
+              onClick={() => handleInviteResponse(invite._id, "reject")}
+            >
+              Reject
+            </Button>
+          </div>
+        </div>
+      ))
+    )}
+  </DropdownMenuContent>
+</DropdownMenu>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-8 w-8 rounded-full">

@@ -12,7 +12,10 @@ const projectSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
+    clientName: {
+      type: String,
+      required: true,
+    },
     // Users involved in the board
     participants: [
       {
@@ -27,6 +30,20 @@ const projectSchema = new mongoose.Schema(
       enum: ["active", "completed", "on-hold"],
       default: "active",
     },
+    invites: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending",
+      },
+    },
+  ],
+
     dueDate: Date,
     progress: Number,
   },
