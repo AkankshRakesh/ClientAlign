@@ -48,7 +48,6 @@ import {
   FileText,
   Star,
   Activity,
-  Users,
   ChevronRight,
 } from "lucide-react"
 import Link from "next/link"
@@ -388,7 +387,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 mb-1">Good morning, {user?.name?.split(" ")[0]}</h1>
-              <p className="text-gray-600">Here's what's happening with your projects today.</p>
+              <p className="text-gray-600">Here&#39;s what&#39;s happening with your projects today.</p>
             </div>
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <DialogTrigger asChild>
