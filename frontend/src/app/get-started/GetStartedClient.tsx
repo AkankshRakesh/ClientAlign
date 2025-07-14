@@ -95,13 +95,16 @@ export default function GetStartedPage() {
       };
 
       // Simulate API call - replace with actual endpoint
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND}/api/auth/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupData),
         },
-        body: JSON.stringify(signupData),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -213,13 +216,17 @@ export default function GetStartedPage() {
                 <CardContent className="space-y-6">
                   {/* Social Sign Up Buttons */}
                   <div className="grid grid-cols-2 gap-4">
-                    <Link href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/github`}>
+                    <Link
+                      href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/github`}
+                    >
                       <Button variant="outline" className="w-full">
                         <Github className="mr-2 h-4 w-4" />
                         GitHub
                       </Button>
                     </Link>
-                    <Link href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/google`}>
+                    <Link
+                      href={`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/google`}
+                    >
                       <Button variant="outline" className="w-full">
                         <Chrome className="mr-2 h-4 w-4" />
                         Google
