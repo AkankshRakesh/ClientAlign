@@ -363,12 +363,22 @@ export default function LandingPage() {
                     </Link>
                   </>
                 ) : (
-                  <Button
-                    onClick={() => signOut()}
-                    className="mt-3 w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
-                  >
-                    Sign Out
-                  </Button>
+                  <>
+                    <Button
+                      onClick={() => signOut()}
+                      className="mt-3 w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:from-blue-700 hover:to-purple-700"
+                    >
+                      Sign Out
+                    </Button>
+                    <Link href="/dashboard">
+                      <Button
+                        variant="outline"
+                        className="w-full justify-center border-gray-200 text-gray-700 shadow-blue-600 hover:bg-gray-50"
+                      >
+                        Dashboard
+                      </Button>
+                    </Link>
+                  </>
                 )}
               </div>
 
