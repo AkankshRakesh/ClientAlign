@@ -39,8 +39,8 @@ export default function LandingPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const signOut = () => {
     localStorage.removeItem("authToken"); // or cookies if you store it there
-    localStorage.removeItem("userName")
-    localStorage.removeItem("userEmail")
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
     window.location.href = "/signin"; // redirect to login page
   };
   // Separate useEffect for mobile menu animation
@@ -51,11 +51,14 @@ export default function LandingPage() {
 
     const verifyToken = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/auth/verify`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND}/api/auth/verify`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         if (!res.ok) throw new Error("Token invalid");
 
@@ -217,20 +220,20 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="hidden items-center space-x-4 md:flex">
-            <Button
-              onClick={() => signOut()}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
-            >
-              Sign Out
-            </Button>
-            <Link href="/dashboard">
-            <Button
+              <Button
+                onClick={() => signOut()}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700"
+              >
+                Sign Out
+              </Button>
+              <Link href="/dashboard">
+                <Button
                   variant="ghost"
                   className="text-gray-600 hover:text-blue-600"
                 >
-              Dashboard
-            </Button>
-            </Link>
+                  Dashboard
+                </Button>
+              </Link>
             </div>
           )}
 
