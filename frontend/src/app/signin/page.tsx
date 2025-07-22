@@ -27,7 +27,7 @@ export default function SignInPage() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  }); 
+  });  
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
