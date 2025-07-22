@@ -16,7 +16,7 @@ import {
   Mail,
   Lock,
   Github,
-  Chrome,
+  Chrome, 
   Shield,
   ArrowLeft,
 } from "lucide-react";
