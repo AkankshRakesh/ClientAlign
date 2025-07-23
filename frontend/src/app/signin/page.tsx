@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-export default function SignInPage() {
+export default function SignInPage() { 
   const [showPassword, setShowPassword] = useState(false); 
   const [formData, setFormData] = useState({
     email: "",
