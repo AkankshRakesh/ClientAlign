@@ -5,7 +5,6 @@ import "./globals.css"
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ClientAuthButtons } from "@/components/client-auth-buttons"
-import { cookies } from "next/headers"
 import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -16,18 +15,15 @@ export const metadata: Metadata = {
     generator: 'v0.dev'
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
-
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SidebarProvider defaultOpen={defaultOpen}>
+        <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
             <main className="flex flex-col flex-1 p-4 md:p-6">

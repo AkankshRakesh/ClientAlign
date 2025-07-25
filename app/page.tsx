@@ -1,19 +1,22 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { ClientAuthButtons } from "@/components/client-auth-buttons"
-import { createServerClient } from "@/lib/supabase/server"
+import { useAuth } from "@/hooks/use-auth"
 import Link from "next/link"
 
-export default async function HomePage() {
-  let session = null
-  let user = null
+export default function HomePage() {
+  const { user, loading } = useAuth()
 
-  try {
-    const { supabase } = await createServerClient()
-    const { data: { session: currentSession } } = await supabase.auth.getSession()
-    session = currentSession
-    user = session?.user
-  } catch (error) {
-    console.error("Error fetching session:", error)
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-theme(spacing.16))] text-center">
+        <div className="animate-pulse">
+          <div className="h-12 bg-gray-200 rounded w-96 mb-4"></div>
+          <div className="h-6 bg-gray-200 rounded w-80 mb-8"></div>
+          <div className="h-10 bg-gray-200 rounded w-32"></div>
+        </div>
+      </div>
+    )
   }
 
   return (
