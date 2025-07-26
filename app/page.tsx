@@ -20,21 +20,21 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-theme(spacing.16))] text-center relative">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-theme(spacing.32))] text-center relative px-4">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-lg animate-pulse delay-1000"></div>
-        <div className="absolute bottom-32 left-20 w-40 h-40 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-xl animate-pulse delay-2000"></div>
-        <div className="absolute bottom-20 right-10 w-28 h-28 bg-gradient-to-br from-orange-400/20 to-red-400/20 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-400/15 to-pink-400/15 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-blue-400/15 to-cyan-400/15 rounded-full blur-lg animate-pulse delay-1000"></div>
+        <div className="absolute bottom-32 left-20 w-40 h-40 bg-gradient-to-br from-green-400/15 to-emerald-400/15 rounded-full blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute bottom-20 right-10 w-28 h-28 bg-gradient-to-br from-orange-400/15 to-red-400/15 rounded-full blur-lg animate-pulse delay-500"></div>
       </div>
       
       {/* Main content */}
-      <div className="relative z-10">
+      <div className="relative z-10 max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent animate-in fade-in-50 slide-in-from-bottom-10 duration-1000">
           Welcome to ClientAlign
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl animate-in fade-in-50 slide-in-from-bottom-10 duration-1000 delay-300">
+        <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-in fade-in-50 slide-in-from-bottom-10 duration-1000 delay-300">
           Enable seamless, transparent, and goal-driven collaboration between clients and creators.
         </p>
       </div>

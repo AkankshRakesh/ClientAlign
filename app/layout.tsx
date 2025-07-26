@@ -33,11 +33,11 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <AppSidebar />
-            <SidebarInset>
+            <SidebarInset className="bg-gradient-to-br from-white/30 via-purple-50/20 to-pink-50/20 dark:from-gray-900/30 dark:via-purple-900/10 dark:to-pink-900/10">
               <main className="flex flex-col flex-1 p-4 md:p-6">
-                <div className="flex items-center justify-between mb-4 p-2 rounded-lg bg-gradient-to-r from-white/50 to-purple-50/30 dark:from-gray-900/50 dark:to-purple-900/20 backdrop-blur-sm border border-purple-200/30 dark:border-purple-800/30">
-                  <SidebarTrigger className="text-purple-600 dark:text-purple-400 hover:bg-purple-100/50 dark:hover:bg-purple-900/30" />
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between mb-6 p-3 rounded-xl bg-gradient-to-r from-white/70 to-purple-50/40 dark:from-gray-900/70 dark:to-purple-900/30 backdrop-blur-md border border-purple-200/40 dark:border-purple-800/40 shadow-sm">
+                  <SidebarTrigger className="text-purple-600 dark:text-purple-400 hover:bg-purple-100/50 dark:hover:bg-purple-900/30 rounded-lg transition-all duration-300" />
+                  <div className="flex items-center gap-3">
                     <ThemeToggle />
                     <ClientAuthButtons />
                   </div>
