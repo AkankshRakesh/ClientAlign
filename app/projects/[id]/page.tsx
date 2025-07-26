@@ -1,34 +1,34 @@
-import { Badge } from "@/components/ui/badge";
-import { createServerClient } from "@/lib/supabase/server";
-import { notFound } from "next/navigation";
+import { Badge } from "@/components/ui/badge"
+import { createServerClient } from "@/lib/supabase/server"
+import { notFound } from "next/navigation"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { TaskItem } from "@/components/task-item";
-import { FeedbackItem } from "@/components/feedback-item";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Send } from "lucide-react";
-import { revalidatePath } from "next/cache";
+} from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { TaskItem } from "@/components/task-item"
+import { FeedbackItem } from "@/components/feedback-item"
+import { Separator } from "@/components/ui/separator"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+import { Send } from "lucide-react"
+import { revalidatePath } from "next/cache"
 
 interface ProjectPageProps {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const projectId = params.id;
-  const supabase = await createServerClient();
+  const projectId = params.id
+  const supabase = await createServerClient()
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (!user) {
     return (
@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           You can set up authentication in your Supabase project.
         </p>
       </div>
-    );
+    )
   }
 
   // Fetch project details and check user's role
@@ -57,19 +57,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         *,
         profiles(full_name, email)
       )
-    `,
+    `
     )
     .eq("id", projectId)
-    .single();
+    .single()
 
   if (projectError || !projectData) {
-    console.error("Error fetching project:", projectError);
-    notFound();
+    console.error("Error fetching project:", projectError)
+    notFound()
   }
 
   const userRole = projectData.project_members.find(
-    (member) => member.profile_id === user.id,
-  )?.role;
+    (member) => member.profile_id === user.id
+  )?.role
 
   if (!userRole) {
     return (
@@ -79,29 +79,29 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           You are not a member of this project.
         </p>
       </div>
-    );
+    )
   }
 
-  const isCreator = userRole === "creator" || userRole === "admin";
+  const isCreator = userRole === "creator" || userRole === "admin"
 
   // Calculate overall project progress (dummy for now)
-  const totalTasks = projectData.tasks.length;
+  const totalTasks = projectData.tasks.length
   const completedTasks = projectData.tasks.filter(
-    (task) => task.status === "done",
-  ).length;
+    (task) => task.status === "done"
+  ).length
   const projectProgress =
-    totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+    totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0
 
   // Server Actions
   const toggleTaskStatus = async (taskId: string, newStatus: string) => {
-    "use server";
-    const supabase = await createServerClient();
+    "use server"
+    const supabase = await createServerClient()
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      throw new Error("User not authenticated.");
+      throw new Error("User not authenticated.")
     }
 
     // Verify user is a creator/admin for this project
@@ -110,7 +110,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       .select("role")
       .eq("project_id", projectId)
       .eq("profile_id", user.id)
-      .single();
+      .single()
 
     if (
       memberError ||
@@ -118,31 +118,31 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       (member.role !== "creator" && member.role !== "admin")
     ) {
       throw new Error(
-        "Permission denied. Only creators/admins can update tasks.",
-      );
+        "Permission denied. Only creators/admins can update tasks."
+      )
     }
 
     const { error } = await supabase
       .from("tasks")
       .update({ status: newStatus })
-      .eq("id", taskId);
+      .eq("id", taskId)
 
     if (error) {
-      console.error("Error updating task status:", error);
-      throw new Error("Failed to update task status.");
+      console.error("Error updating task status:", error)
+      throw new Error("Failed to update task status.")
     }
-    revalidatePath(`/projects/${projectId}`);
-  };
+    revalidatePath(`/projects/${projectId}`)
+  }
 
   const deleteTask = async (taskId: string) => {
-    "use server";
-    const supabase = await createServerClient();
+    "use server"
+    const supabase = await createServerClient()
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      throw new Error("User not authenticated.");
+      throw new Error("User not authenticated.")
     }
 
     // Verify user is a creator/admin for this project
@@ -151,7 +151,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       .select("role")
       .eq("project_id", projectId)
       .eq("profile_id", user.id)
-      .single();
+      .single()
 
     if (
       memberError ||
@@ -159,47 +159,47 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       (member.role !== "creator" && member.role !== "admin")
     ) {
       throw new Error(
-        "Permission denied. Only creators/admins can delete tasks.",
-      );
+        "Permission denied. Only creators/admins can delete tasks."
+      )
     }
 
-    const { error } = await supabase.from("tasks").delete().eq("id", taskId);
+    const { error } = await supabase.from("tasks").delete().eq("id", taskId)
 
     if (error) {
-      console.error("Error deleting task:", error);
-      throw new Error("Failed to delete task.");
+      console.error("Error deleting task:", error)
+      throw new Error("Failed to delete task.")
     }
-    revalidatePath(`/projects/${projectId}`);
-  };
+    revalidatePath(`/projects/${projectId}`)
+  }
 
   const addFeedback = async (formData: FormData) => {
-    "use server";
-    const supabase = await createServerClient();
+    "use server"
+    const supabase = await createServerClient()
     const {
       data: { user },
-    } = await supabase.auth.getUser();
+    } = await supabase.auth.getUser()
 
     if (!user) {
-      throw new Error("User not authenticated.");
+      throw new Error("User not authenticated.")
     }
 
-    const content = formData.get("feedbackContent") as string;
+    const content = formData.get("feedbackContent") as string
     if (!content) {
-      throw new Error("Feedback content cannot be empty.");
+      throw new Error("Feedback content cannot be empty.")
     }
 
     const { error } = await supabase.from("feedback").insert({
       project_id: projectId,
       from_profile_id: user.id,
       content: content,
-    });
+    })
 
     if (error) {
-      console.error("Error adding feedback:", error);
-      throw new Error("Failed to add feedback.");
+      console.error("Error adding feedback:", error)
+      throw new Error("Failed to add feedback.")
     }
-    revalidatePath(`/projects/${projectId}`);
-  };
+    revalidatePath(`/projects/${projectId}`)
+  }
 
   return (
     <div className="container mx-auto py-8">
@@ -336,5 +336,5 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </Card>
       </div>
     </div>
-  );
+  )
 }

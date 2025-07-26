@@ -1,25 +1,25 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { format } from "date-fns"
 
 interface FeedbackItemProps {
   feedback: {
-    id: string;
-    content: string;
-    is_resolved: boolean;
-    created_at: string;
-    from_profile_id: string;
+    id: string
+    content: string
+    is_resolved: boolean
+    created_at: string
+    from_profile_id: string
     profiles: {
-      full_name: string | null;
-      email: string;
-    } | null;
-  };
+      full_name: string | null
+      email: string
+    } | null
+  }
 }
 
 export function FeedbackItem({ feedback }: FeedbackItemProps) {
   const senderName =
-    feedback.profiles?.full_name || feedback.profiles?.email || "Unknown User";
-  const createdAt = new Date(feedback.created_at);
+    feedback.profiles?.full_name || feedback.profiles?.email || "Unknown User"
+  const createdAt = new Date(feedback.created_at)
 
   return (
     <Card className="mb-4">
@@ -38,5 +38,5 @@ export function FeedbackItem({ feedback }: FeedbackItemProps) {
         <p className="text-sm text-muted-foreground">{feedback.content}</p>
       </CardContent>
     </Card>
-  );
+  )
 }

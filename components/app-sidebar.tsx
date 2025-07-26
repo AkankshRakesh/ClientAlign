@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { SidebarGroupAction } from "@/components/ui/sidebar";
-import { useAuth } from "@/hooks/use-auth";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { SidebarGroupAction } from "@/components/ui/sidebar"
+import { useAuth } from "@/hooks/use-auth"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 
 import {
   Calendar,
@@ -17,8 +17,8 @@ import {
   ChevronUp,
   LogIn,
   UserPlus,
-} from "lucide-react";
-import Link from "next/link";
+} from "lucide-react"
+import Link from "next/link"
 
 import {
   Sidebar,
@@ -32,24 +32,24 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 export function AppSidebar() {
-  const { user, loading } = useAuth();
-  const router = useRouter();
+  const { user, loading } = useAuth()
+  const router = useRouter()
 
   const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-  };
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push("/")
+  }
 
   if (loading) {
     return (
@@ -65,7 +65,7 @@ export function AppSidebar() {
           </SidebarMenu>
         </SidebarHeader>
       </Sidebar>
-    );
+    )
   }
 
   if (!user) {
@@ -125,7 +125,7 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-    );
+    )
   }
 
   // Show full sidebar for authenticated users
@@ -312,5 +312,5 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
-  );
+  )
 }

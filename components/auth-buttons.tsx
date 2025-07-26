@@ -1,29 +1,29 @@
-import { createServerClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
-import { signOut } from "@/app/auth/actions";
-import Link from "next/link";
-import { User, LogIn, UserPlus, LogOut } from "lucide-react";
+import { createServerClient } from "@/lib/supabase/server"
+import { Button } from "@/components/ui/button"
+import { signOut } from "@/app/auth/actions"
+import Link from "next/link"
+import { User, LogIn, UserPlus, LogOut } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"
 
 export async function AuthButtons() {
-  let session = null;
-  let user = null;
+  let session = null
+  let user = null
 
   try {
-    const { supabase } = await createServerClient();
+    const { supabase } = await createServerClient()
     const {
       data: { session: currentSession },
-    } = await supabase.auth.getSession();
-    session = currentSession;
-    user = session?.user;
+    } = await supabase.auth.getSession()
+    session = currentSession
+    user = session?.user
   } catch (error) {
-    console.error("Error fetching session:", error);
+    console.error("Error fetching session:", error)
   }
 
   if (session && user) {
@@ -76,7 +76,7 @@ export async function AuthButtons() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    );
+    )
   }
 
   // User is not authenticated - show login/signup buttons
@@ -104,5 +104,5 @@ export async function AuthButtons() {
         </Link>
       </Button>
     </div>
-  );
+  )
 }

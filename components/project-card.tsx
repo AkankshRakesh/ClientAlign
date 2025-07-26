@@ -1,22 +1,22 @@
-import Link from "next/link";
+import Link from "next/link"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { LayoutDashboard } from "lucide-react";
+} from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+import { LayoutDashboard } from "lucide-react"
 
 interface ProjectCardProps {
   project: {
-    id: string;
-    name: string;
-    description: string | null;
-    status: string;
-  };
-  progress: number;
+    id: string
+    name: string
+    description: string | null
+    status: string
+  }
+  progress: number
 }
 
 // Function to get gradient colors based on project ID
@@ -30,17 +30,17 @@ const getProjectGradient = (projectId: string) => {
     "from-pink-400 to-rose-400",
     "from-cyan-400 to-blue-400",
     "from-emerald-400 to-green-400",
-  ];
+  ]
 
-  let hash = 0;
+  let hash = 0
   for (let i = 0; i < projectId.length; i++) {
-    hash = projectId.charCodeAt(i) + ((hash << 5) - hash);
+    hash = projectId.charCodeAt(i) + ((hash << 5) - hash)
   }
-  return gradients[Math.abs(hash) % gradients.length];
-};
+  return gradients[Math.abs(hash) % gradients.length]
+}
 
 export function ProjectCard({ project, progress }: ProjectCardProps) {
-  const gradientClass = getProjectGradient(project.id);
+  const gradientClass = getProjectGradient(project.id)
 
   return (
     <Link href={`/projects/${project.id}`}>
@@ -76,5 +76,5 @@ export function ProjectCard({ project, progress }: ProjectCardProps) {
         </CardContent>
       </Card>
     </Link>
-  );
+  )
 }
