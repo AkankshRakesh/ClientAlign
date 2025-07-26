@@ -1,20 +1,20 @@
-import { createServerClient } from "@/lib/supabase/server";
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { createServerClient } from "@/lib/supabase/server"
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
 
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get("code")
 
   if (code) {
-    const { supabase } = await createServerClient();
-    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    const { supabase } = await createServerClient()
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (error) {
-      console.error("Auth exchange error:", error);
+      console.error("Auth exchange error:", error)
       return NextResponse.redirect(
-        requestUrl.origin + "/login?error=auth_error",
-      );
+        requestUrl.origin + "/login?error=auth_error"
+      )
     }
 
     // Ensure profile is created for the user (fallback if trigger didn't work)
@@ -35,19 +35,19 @@ export async function GET(request: Request) {
           {
             onConflict: "id",
             ignoreDuplicates: false,
-          },
-        );
+          }
+        )
 
         if (profileError) {
-          console.log("Profile upsert info:", profileError.message);
+          console.log("Profile upsert info:", profileError.message)
         }
       } catch (profileError) {
-        console.log("Profile creation fallback failed:", profileError);
+        console.log("Profile creation fallback failed:", profileError)
         // Don't fail the auth process if profile creation fails
       }
     }
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin + "/projects");
+  return NextResponse.redirect(requestUrl.origin + "/projects")
 }

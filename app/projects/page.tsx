@@ -1,64 +1,64 @@
-import { createServerClient } from "@/lib/supabase/server";
-import { ProjectCard } from "@/components/project-card";
-import { Card } from "@/components/ui/card";
-import { Plus } from "lucide-react";
-import Link from "next/link";
+import { createServerClient } from "@/lib/supabase/server"
+import { ProjectCard } from "@/components/project-card"
+import { Card } from "@/components/ui/card"
+import { Plus } from "lucide-react"
+import Link from "next/link"
 
 export default async function ProjectsPage() {
-  const { supabase } = await createServerClient();
+  const { supabase } = await createServerClient()
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (!user) {
-    return <div className="text-red-500">Please log in to view projects.</div>;
+    return <div className="text-red-500">Please log in to view projects.</div>
   }
 
   // Simple approach: get user's own projects and projects where they're members
   // This avoids the circular RLS issue by separating the queries completely
 
-  let userProjects: Project[] = [];
+  let userProjects: Project[] = []
 
   try {
     // Strategy 1: Get all projects (if RLS is disabled) and filter client-side
     const { data: allProjects, error: allError } = await supabase
       .from("projects")
-      .select("id, name, description, status, created_at, owner_id");
+      .select("id, name, description, status, created_at, owner_id")
 
     const { data: memberships, error: memberError } = await supabase
       .from("project_members")
       .select("project_id")
-      .eq("profile_id", user.id);
+      .eq("profile_id", user.id)
 
     if (!allError && allProjects && !memberError) {
       // Filter projects where user is owner or member
-      const memberProjectIds = memberships?.map((m) => m.project_id) || [];
+      const memberProjectIds = memberships?.map((m) => m.project_id) || []
 
       userProjects = allProjects.filter(
         (project) =>
-          project.owner_id === user.id || memberProjectIds.includes(project.id),
-      );
+          project.owner_id === user.id || memberProjectIds.includes(project.id)
+      )
     } else {
       // Strategy 2: If RLS is still enabled, use the separate queries approach
       // First, get projects where user is the owner
       const { data: ownedProjects, error: ownedError } = await supabase
         .from("projects")
         .select("id, name, description, status, created_at, owner_id")
-        .eq("owner_id", user.id);
+        .eq("owner_id", user.id)
 
       if (!ownedError && ownedProjects) {
-        userProjects = [...ownedProjects];
+        userProjects = [...ownedProjects]
       }
 
       // Then get project memberships
       if (!memberError && memberships && memberships.length > 0) {
-        const memberProjectIds = memberships.map((m) => m.project_id);
+        const memberProjectIds = memberships.map((m) => m.project_id)
 
         // Filter out projects we already have from ownership
-        const ownedIds = userProjects.map((p) => p.id);
+        const ownedIds = userProjects.map((p) => p.id)
         const newProjectIds = memberProjectIds.filter(
-          (id) => !ownedIds.includes(id),
-        );
+          (id) => !ownedIds.includes(id)
+        )
 
         if (newProjectIds.length > 0) {
           // Try to fetch member projects one by one to avoid RLS conflicts
@@ -69,47 +69,47 @@ export default async function ProjectsPage() {
                   .from("projects")
                   .select("id, name, description, status, created_at, owner_id")
                   .eq("id", projectId)
-                  .single();
+                  .single()
 
               if (!projectError && memberProject) {
-                userProjects.push(memberProject);
+                userProjects.push(memberProject)
               }
             } catch (err) {
               console.log(
-                `Skipping project ${projectId} due to RLS restrictions`,
-              );
+                `Skipping project ${projectId} due to RLS restrictions`
+              )
             }
           }
         }
       }
     }
   } catch (error) {
-    console.error("Error fetching projects:", error);
+    console.error("Error fetching projects:", error)
     return (
       <div className="text-red-500">
         Error loading projects. Please check the database configuration.
       </div>
-    );
+    )
   }
 
   interface Project {
-    id: string;
-    name: string;
-    description: string | null;
-    status: string;
-    created_at: string;
-    owner_id: string;
+    id: string
+    name: string
+    description: string | null
+    status: string
+    created_at: string
+    owner_id: string
   }
 
   // For demonstration, calculate a dummy progress
   const getDummyProgress = (projectId: string) => {
     // Simple hash-based dummy progress
-    let hash = 0;
+    let hash = 0
     for (let i = 0; i < projectId.length; i++) {
-      hash = projectId.charCodeAt(i) + ((hash << 5) - hash);
+      hash = projectId.charCodeAt(i) + ((hash << 5) - hash)
     }
-    return Math.abs(hash % 100); // Progress between 0 and 99
-  };
+    return Math.abs(hash % 100) // Progress between 0 and 99
+  }
 
   return (
     <div className="container mx-auto py-8">
@@ -148,5 +148,5 @@ export default async function ProjectsPage() {
         )}
       </div>
     </div>
-  );
+  )
 }

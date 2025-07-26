@@ -1,23 +1,23 @@
-"use client";
+"use client"
 
-import { useAuth } from "@/hooks/use-auth";
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { User, LogIn, UserPlus, LogOut, Settings } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth"
+import { Button } from "@/components/ui/button"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { User, LogIn, UserPlus, LogOut, Settings } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu"
 
 interface ClientAuthButtonsProps {
-  variant?: "default" | "outline" | "ghost";
-  size?: "default" | "sm" | "lg";
-  showLabels?: boolean;
+  variant?: "default" | "outline" | "ghost"
+  size?: "default" | "sm" | "lg"
+  showLabels?: boolean
 }
 
 export function ClientAuthButtons({
@@ -25,21 +25,21 @@ export function ClientAuthButtons({
   size = "sm",
   showLabels = true,
 }: ClientAuthButtonsProps) {
-  const { user, loading, isAuthenticated } = useAuth();
-  const router = useRouter();
+  const { user, loading, isAuthenticated } = useAuth()
+  const router = useRouter()
 
   const handleSignOut = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/");
-  };
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push("/")
+  }
 
   if (loading) {
     return (
       <div className="flex items-center gap-2">
         <div className="h-8 w-16 bg-gray-200 animate-pulse rounded" />
       </div>
-    );
+    )
   }
 
   if (isAuthenticated && user) {
@@ -87,7 +87,7 @@ export function ClientAuthButtons({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    );
+    )
   }
 
   // User is not authenticated - show login/signup buttons
@@ -106,5 +106,5 @@ export function ClientAuthButtons({
         </Link>
       </Button>
     </div>
-  );
+  )
 }

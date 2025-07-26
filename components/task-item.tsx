@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
-import { useTransition } from "react";
-import { toast } from "@/hooks/use-toast";
+import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
+import { Trash } from "lucide-react"
+import { useTransition } from "react"
+import { toast } from "@/hooks/use-toast"
 
 interface TaskItemProps {
-  id: string;
-  title: string;
-  status: string;
-  onToggleStatus: (id: string, newStatus: string) => Promise<void>;
-  onDelete: (id: string) => Promise<void>;
-  isCreator: boolean;
+  id: string
+  title: string
+  status: string
+  onToggleStatus: (id: string, newStatus: string) => Promise<void>
+  onDelete: (id: string) => Promise<void>
+  isCreator: boolean
 }
 
 export function TaskItem({
@@ -23,8 +23,8 @@ export function TaskItem({
   onDelete,
   isCreator,
 }: TaskItemProps) {
-  const [isPending, startTransition] = useTransition();
-  const isCompleted = status === "done";
+  const [isPending, startTransition] = useTransition()
+  const isCompleted = status === "done"
 
   const handleToggle = () => {
     if (!isCreator) {
@@ -32,17 +32,17 @@ export function TaskItem({
         title: "Permission Denied",
         description: "Only creators can update task status.",
         variant: "destructive",
-      });
-      return;
+      })
+      return
     }
     startTransition(async () => {
-      await onToggleStatus(id, isCompleted ? "to-do" : "done");
+      await onToggleStatus(id, isCompleted ? "to-do" : "done")
       toast({
         title: "Task Updated",
         description: `Task "${title}" marked as ${isCompleted ? "to-do" : "done"}.`,
-      });
-    });
-  };
+      })
+    })
+  }
 
   const handleDelete = () => {
     if (!isCreator) {
@@ -50,17 +50,17 @@ export function TaskItem({
         title: "Permission Denied",
         description: "Only creators can delete tasks.",
         variant: "destructive",
-      });
-      return;
+      })
+      return
     }
     startTransition(async () => {
-      await onDelete(id);
+      await onDelete(id)
       toast({
         title: "Task Deleted",
         description: `Task "${title}" has been removed.`,
-      });
-    });
-  };
+      })
+    })
+  }
 
   return (
     <div className="flex items-center justify-between rounded-lg bg-muted p-3 shadow-sm transition-shadow hover:shadow-md">
@@ -90,5 +90,5 @@ export function TaskItem({
         </Button>
       )}
     </div>
-  );
+  )
 }

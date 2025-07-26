@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/hooks/use-auth";
-import Link from "next/link";
+import { Button } from "@/components/ui/button"
+import { useAuth } from "@/hooks/use-auth"
+import Link from "next/link"
 
 export default function HomePage() {
-  const { user, loading } = useAuth();
+  const { user, loading } = useAuth()
 
   if (loading) {
     return (
@@ -16,7 +16,7 @@ export default function HomePage() {
           <div className="h-10 bg-gradient-to-r from-green-200 to-emerald-200 dark:from-green-800 dark:to-emerald-800 rounded-lg w-32 animate-shimmer"></div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -100,5 +100,5 @@ export default function HomePage() {
         </div>
       )}
     </div>
-  );
+  )
 }

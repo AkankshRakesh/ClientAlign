@@ -1,5 +1,5 @@
-import { AuthForm } from "@/components/auth-form";
-import { signUp } from "@/app/auth/actions";
+import { AuthForm } from "@/components/auth-form"
+import { signUp } from "@/app/auth/actions"
 
 export default function SignupPage() {
   return (
@@ -30,5 +30,5 @@ export default function SignupPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

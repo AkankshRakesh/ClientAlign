@@ -1,32 +1,32 @@
-"use client";
+"use client"
 
-import { useActionState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useActionState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import { signInWithOAuth } from "@/app/auth/actions"; // Import the new action
-import { FcGoogle } from "react-icons/fc"; // Import Google icon
-import { FaGithub } from "react-icons/fa"; // Import GitHub icon
+} from "@/components/ui/card"
+import Link from "next/link"
+import { signInWithOAuth } from "@/app/auth/actions" // Import the new action
+import { FcGoogle } from "react-icons/fc" // Import Google icon
+import { FaGithub } from "react-icons/fa" // Import GitHub icon
 
 interface AuthFormProps {
   formAction: (
     prevState: any,
-    formData: FormData,
-  ) => Promise<{ success: boolean; message: string } | undefined>;
-  buttonText: string;
-  title: string;
-  description: string;
-  showFullName?: boolean;
-  redirectLink?: { href: string; text: string; label: string };
-  showSocialLogins?: boolean; // New prop for social logins
+    formData: FormData
+  ) => Promise<{ success: boolean; message: string } | undefined>
+  buttonText: string
+  title: string
+  description: string
+  showFullName?: boolean
+  redirectLink?: { href: string; text: string; label: string }
+  showSocialLogins?: boolean // New prop for social logins
 }
 
 export function AuthForm({
@@ -38,7 +38,7 @@ export function AuthForm({
   redirectLink,
   showSocialLogins = false, // Default to false
 }: AuthFormProps) {
-  const [state, action, isPending] = useActionState(formAction, undefined);
+  const [state, action, isPending] = useActionState(formAction, undefined)
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -127,5 +127,5 @@ export function AuthForm({
         )}
       </CardContent>
     </Card>
-  );
+  )
 }
