@@ -103,12 +103,22 @@ export default async function ProjectsPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">My Projects</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+          My Projects
+        </h1>
+        <p className="text-muted-foreground">
+          Manage and track your collaboration projects
+        </p>
+      </div>
+      
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="flex flex-col items-center justify-center p-6 border-2 border-dashed hover:border-primary transition-colors cursor-pointer">
+        <Card className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-purple-300/50 hover:border-purple-500 hover:bg-gradient-to-br hover:from-purple-50/30 hover:to-pink-50/30 dark:border-purple-700/50 dark:hover:border-purple-400 dark:hover:from-purple-900/20 dark:hover:to-pink-900/20 transition-all duration-300 cursor-pointer group">
           <Link href="#" className="flex flex-col items-center gap-2">
-            <Plus className="w-8 h-8 text-muted-foreground" />
-            <span className="text-lg font-medium text-muted-foreground">Create New Project</span>
+            <div className="p-3 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 group-hover:from-purple-200 group-hover:to-pink-200 dark:group-hover:from-purple-800/70 dark:group-hover:to-pink-800/70 transition-all duration-300">
+              <Plus className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+            </div>
+            <span className="text-lg font-medium text-purple-700 dark:text-purple-300">Create New Project</span>
           </Link>
         </Card>
         {userProjects.length > 0 ? (
