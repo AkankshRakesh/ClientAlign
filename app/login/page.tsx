@@ -1,5 +1,5 @@
-import { AuthForm } from "@/components/auth-form"
-import { signIn } from "@/app/auth/actions"
+import { AuthForm } from "@/components/auth-form";
+import { signIn } from "@/app/auth/actions";
 
 export default function LoginPage() {
   return (
@@ -19,11 +19,15 @@ export default function LoginPage() {
             buttonText="Login"
             title="Login"
             description="Enter your email below to login to your account"
-            redirectLink={{ href: "/signup", text: "Sign up", label: "Don't have an account?" }}
+            redirectLink={{
+              href: "/signup",
+              text: "Sign up",
+              label: "Don't have an account?",
+            }}
             showSocialLogins={true} // Enable social logins
           />
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,31 +1,31 @@
-import { NextResponse, type NextRequest } from "next/server"
-import { createMiddlewareClient } from "@/lib/supabase/server"
+import { NextResponse, type NextRequest } from "next/server";
+import { createMiddlewareClient } from "@/lib/supabase/server";
 
 export async function middleware(request: NextRequest) {
-  const { supabase, response } = createMiddlewareClient(request)
+  const { supabase, response } = createMiddlewareClient(request);
 
   // Refresh session if expired and user has a refresh token
   const {
     data: { session },
-  } = await supabase.auth.getSession()
+  } = await supabase.auth.getSession();
 
-  const { pathname } = request.nextUrl
+  const { pathname } = request.nextUrl;
 
   // If user is not authenticated and tries to access a protected route, redirect to login
   if (!session && pathname.startsWith("/projects")) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/login"
-    return NextResponse.redirect(url)
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
   }
 
   // If user is authenticated and tries to access login/signup, redirect to projects
   if (session && (pathname === "/login" || pathname === "/signup")) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/projects"
-    return NextResponse.redirect(url)
+    const url = request.nextUrl.clone();
+    url.pathname = "/projects";
+    return NextResponse.redirect(url);
   }
 
-  return response
+  return response;
 }
 
 export const config = {
@@ -40,4 +40,4 @@ export const config = {
      */
     "/((?!_next/static|_next/image|favicon.ico|auth/callback|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
-}
+};
