@@ -249,7 +249,7 @@ const Sidebar = React.forwardRef<
           <div 
             data-sidebar="sidebar"
             className="flex h-full w-full flex-col bg-gradient-to-br from-purple-50/80 via-pink-50/40 to-blue-50/60 dark:from-gray-900/95 dark:via-purple-900/30 dark:to-blue-900/20 backdrop-blur-sm group-data-[variant=floating]:rounded-xl group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow-xl group-data-[variant=floating]:shadow-purple-500/10 group-data-[variant=floating]:m-2"
-          >
+          > 
             {children}
           </div>
         </div>
